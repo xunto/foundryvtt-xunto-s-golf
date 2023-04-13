@@ -1,0 +1,17 @@
+{
+    "id": "xunto-s-golf",
+    "title": "Xunto's Golf",
+    "description": "",
+    "authors": [
+        {
+            "name": "xunto"
+        }
+    ],
+    "version": "1.0.0",
+    "compatibility": {
+        "verified": "10"
+    },
+    "scripts": [
+        "main.js"
+    ]
+}
