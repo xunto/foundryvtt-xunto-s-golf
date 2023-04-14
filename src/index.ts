@@ -2,11 +2,17 @@
 
 import { Vector } from "ts-matrix";
 
+declare var Hooks: any;
+declare var dnd5e: any;
+declare var game: any;
+declare var ui: any;
+
+
 Hooks.on("ready", function() {
     dnd5e.config.weaponProperties["golf"] = "xunto-s-golf.golf-club";
 })
 
-Hooks.on("dnd5e.useItem", function(item) {
+Hooks.on("dnd5e.useItem", function(item: any) {
     if (!item.system.properties.golf) return;
 
     let actor = getActorDocument(item.parent);
@@ -20,7 +26,7 @@ Hooks.on("dnd5e.useItem", function(item) {
     pushTarget(actor, target);
 })
 
-function getActorDocument(actor) {
+function getActorDocument(actor: any) {
     return actor.getActiveTokens()[0].document;
 }
 
@@ -34,7 +40,7 @@ function getTargetDocument() {
     return token.document;
 }
 
-function pushTarget(actor, target) {
+function pushTarget(actor: any, target: any) {
     let actorPos = new Vector([actor.x, actor.y]);
     let targetPos = new Vector([target.x, target.y]);
 
