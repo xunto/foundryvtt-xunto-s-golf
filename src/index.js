@@ -1,5 +1,7 @@
 // CONFIG.debug.hooks = true
 
+import { Vector } from "ts-matrix";
+
 Hooks.on("ready", function() {
     dnd5e.config.weaponProperties["golf"] = "xunto-s-golf.golf-club";
 })
@@ -33,18 +35,12 @@ function getTargetDocument() {
 }
 
 function pushTarget(actor, target) {
-    console.log(actor);
-    console.log(target);
+    let actorPos = new Vector([actor.x, actor.y]);
+    let targetPos = new Vector([target.x, target.y]);
 
-    let vx = target.x - actor.x;
-    let vy = target.y - actor.y;
-    let magnitude = Math.sqrt(vx * vx + vy * vy);
+    let movement = targetPos.substract(actorPos).normalize().scale(500);
 
-    vx /= magnitude;
-    vy /= magnitude;
+    let newPos = targetPos.add(movement);
 
-    vx *= 500;
-    vy *= 500;
-
-    target.update({"x": target.x + vx, "y": target.y + vy});
+    target.update({"x": newPos.values[0], "y": newPos.values[1]});
 }

@@ -12,6 +12,6 @@
         "verified": "10"
     },
     "scripts": [
-        "index.js"
+        "dist/main.js"
     ]
 }
