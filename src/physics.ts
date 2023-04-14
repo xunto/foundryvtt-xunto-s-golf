@@ -1,5 +1,7 @@
 import { Vector } from "ts-matrix";
 
+const MAX_PUSH_DISTANCE = 10;
+
 export function pushTarget(actor: any, target: any, power: number) {
     let distance = calculatePushDistance(power);
 
@@ -15,6 +17,6 @@ export function pushTarget(actor: any, target: any, power: number) {
 
 function calculatePushDistance(power: number): number {
     let gridSize = game.canvas.scene.grid.size;
-    let maxDistance = 10 * gridSize;
+    let maxDistance = MAX_PUSH_DISTANCE * gridSize;
     return maxDistance * (power/100);
 }
