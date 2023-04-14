@@ -23,10 +23,7 @@ export function createKickDialog(actor: any, target: any) {
             icon: `<i class="fas fa-check"></i>`
           }
         },
-        render: () => {
-            minigame.start();
-            console.log("TEST");
-        },
+        render: () => minigame.start(),
         close: () => minigame.stop(),
       }).render(true);
 }
