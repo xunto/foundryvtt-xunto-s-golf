@@ -9,7 +9,6 @@ Hooks.on("ready", function() {
 })
 
 Hooks.on("dnd5e.useItem", function(item: any) {
-    console.log(item);
     if (item.system.actionType !== GAME_ACTION_TYPE) return;
 
     let actor = getActorToken(item.parent);
