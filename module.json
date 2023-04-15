@@ -13,5 +13,21 @@
     },
     "scripts": [
         "dist/main.js"
+    ],
+    "packs": [
+        {
+          "name": "golf-actors",
+          "label": "Golf Actors",
+          "system": "dnd5e",
+          "path": "./packs/golf-actors.db",
+          "type": "Actor"
+        },
+        {
+            "name": "golf-items",
+            "label": "Golf Items",
+            "system": "dnd5e",
+            "path": "./packs/golf-items.db",
+            "type": "Item"
+          }  
     ]
 }
