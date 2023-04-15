@@ -9,11 +9,15 @@ export function push(actor: any, target: any, power: number) {
     let actorPos = pointToVector(actor.position);
     let targetPos = pointToVector(target.position);
 
-    let distance = calculatePushDistance(power);
-    let direction = targetPos.substract(actorPos).normalize();
+    let distance = getPushDistance(power);
+    let direction = getPushDirection(actorPos, targetPos);
 
-    let vectors = Movement.process(targetPos, direction, distance, checkFoundryCollision);
-    let points = vectors.map(vectorToPoint);
+    let points = Movement.initiate(
+        targetPos,
+        direction,
+        distance,
+        checkFoundryCollision
+    ).map(vectorToPoint);
 
     // Render ball movement.
     let promise = Promise.resolve();
@@ -23,12 +27,6 @@ export function push(actor: any, target: any, power: number) {
             return sleep(2000);
         });
     }
-}
-
-function calculatePushDistance(power: number): number {
-    let gridSize = game.canvas.scene.grid.size;
-    let maxDistance = MAX_PUSH_DISTANCE * gridSize;
-    return maxDistance * (power / 100);
 }
 
 function checkFoundryCollision(start: Vector, end: Vector): Collision | null {
@@ -43,6 +41,16 @@ function checkFoundryCollision(start: Vector, end: Vector): Collision | null {
     let normal = getNormal(collision, end.substract(start));
 
     return { "normal": normal, "pos": pointToVector(collision) }
+}
+
+function getPushDirection(actorPos: Vector, targetPos: Vector): Vector {
+    return targetPos.substract(actorPos).normalize();
+}
+
+function getPushDistance(power: number): number {
+    let gridSize = game.canvas.scene.grid.size;
+    let maxDistance = MAX_PUSH_DISTANCE * gridSize;
+    return maxDistance * (power / 100);
 }
 
 function getNormal(collision: any, direction: Vector): Vector {

@@ -8,14 +8,14 @@ export type CollisionChecker = (start: Vector, end: Vector) => Collision;
 const MAX_DEPTH = 50;
 
 export class Movement {
-    depth: number = 0;
-    checkCollision: CollisionChecker;
+    private depth: number = 0;
+    private checkCollision: CollisionChecker;
 
     private constructor(checkCollision: CollisionChecker) {
         this.checkCollision = checkCollision;
     }
 
-    private _process(targetPos: Vector, direction: Vector, distance: number): Vector[] {
+    private processMovement(targetPos: Vector, direction: Vector, distance: number): Vector[] {
         this.depth++;
 
         if (this.depth > MAX_DEPTH) {
@@ -32,12 +32,15 @@ export class Movement {
         if (collision !== null) {
             newPos = collision.pos;
             positions.push(newPos);
-            
+
             // Process reflection.
-            distance = distance - (targetPos.substract(newPos)).length();
-            let normal = collision.normal;
-            let newDirection = direction.substract(normal.scale(2* direction.dot(normal)));
-            positions = positions.concat(this._process(newPos.add(newDirection), newDirection, distance));
+            let distanceLeft = distance - (targetPos.substract(newPos)).length();
+            let newDirection = this.reflect(direction, collision.normal);
+            positions = positions.concat(this.processMovement(
+                newPos.add(newDirection),
+                newDirection,
+                distanceLeft
+            ));
         } else {
             positions.push(newPos);
         }
@@ -45,7 +48,16 @@ export class Movement {
         return positions;
     }
 
-    static process(targetPos: Vector, direction: Vector, distance: number, checkCollision: CollisionChecker): Vector[] {
-        return new Movement(checkCollision)._process(targetPos, direction, distance);
+    private reflect(direction: Vector, surfaceNormal: Vector): Vector {
+        return direction.substract(surfaceNormal.scale(2 * direction.dot(surfaceNormal)));
+    }
+
+    static initiate(
+        targetPos: Vector,
+        direction: Vector,
+        distance: number,
+        checkCollision: CollisionChecker,
+    ): Vector[] {
+        return new Movement(checkCollision).processMovement(targetPos, direction, distance);
     }
 }
