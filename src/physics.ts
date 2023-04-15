@@ -27,7 +27,7 @@ export class BallMovement {
 
         let movement = direction.scale(distance);
         let newPos = pos.add(movement);
-        let collision = this.checkCollision(pos, newPos);
+        let collision = this.checkCollision(pos.add(direction), newPos);
 
         if (collision !== null) {
             newPos = collision.pos;
@@ -37,7 +37,7 @@ export class BallMovement {
             let distanceLeft = distance - (pos.substract(newPos)).length();
             let newDirection = this.reflect(direction, collision.normal);
             positions = positions.concat(this.processMovement(
-                newPos.add(newDirection),
+                newPos,
                 newDirection,
                 distanceLeft
             ));

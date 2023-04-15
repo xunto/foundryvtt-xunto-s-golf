@@ -28,8 +28,8 @@ describe('BallMovement', () => {
         expect(result).toEqual([
             new Vector([1, 1]),
             new Vector([
-                -3.585786437626905,
-                5.585786437626905,
+                -2.585786437626905,
+                4.585786437626905,
             ]),
         ]);
     });
