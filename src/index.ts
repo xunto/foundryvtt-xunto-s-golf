@@ -15,7 +15,7 @@ Hooks.on("dnd5e.useItem", function(item: any) {
     let target = getTargetToken();
 
     if (target === null) {
-        ui.notifications.error("No ball targeted!")
+        ui.notifications.error("No ball targeted!");
         return;
     }
 

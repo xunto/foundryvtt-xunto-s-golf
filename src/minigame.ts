@@ -17,6 +17,9 @@ export class MiniGame {
 
     start() {
         this.input = this.getInput();
+        this.current = this.getRandomCurrent()
+        this.input.value = this.current.toString();
+        this.raising = this.getRandomRaising();
         this.intervalId = setInterval(this.tick.bind(this), TICK_SPEED);
     }
 
@@ -28,7 +31,20 @@ export class MiniGame {
         return this.current;
     }
 
-    tick() {
+    getMinigameHtml(): string {
+        return `<input id="${this.rangeId}" type="range" value="${DEFAULT}" min="${MIN}" max="${MAX}" />`;
+    }
+
+    private getRandomCurrent(): number {
+        return Math.round(Math.random() * 100);
+    }
+
+    private getRandomRaising(): boolean {
+        let r = Math.round(Math.random());
+        return r == 1;
+    }
+
+    private tick(): void {
         if (this.raising) {
             this.current++;
         } else {
