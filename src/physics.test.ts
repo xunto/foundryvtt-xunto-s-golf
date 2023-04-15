@@ -12,7 +12,7 @@ function createChecker(generator: () => Generator<Collision>) {
 
 describe('BallMovement', () => {
     test('check basic collision', () => {
-        let checker = createChecker(function* (): Generator<Collision> {
+        let checker = createChecker(function* () {
             yield { "normal": new Vector([-1, 0]), "pos": new Vector([1, 1]) }
 
             return null;
