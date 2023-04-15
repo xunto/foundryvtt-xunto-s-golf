@@ -1,7 +1,7 @@
 import { Vector } from "ts-matrix";
 import { pointToVector, vectorToPoint } from "./vectors";
 import { sleep } from "./utils";
-import { Collision, Movement, processMovement } from "./physics";
+import { Collision, Movement } from "./physics";
 
 const MAX_PUSH_DISTANCE = 10;
 
@@ -25,22 +25,37 @@ export function push(actor: any, target: any, power: number) {
     }
 }
 
-function checkFoundryCollision(start: Vector, end: Vector): Collision | null {
-    let ray = new Ray(vectorToPoint(start), vectorToPoint(end));
-    let collision: any[] = game.canvas.walls.checkCollision(ray, { "type": "move" });
-
-    if (collision.length === 0) {
-        return null;
-    }
-
-    let normal = new Vector([1,1]).normalize();
-
-    return { "normal": normal, "pos": pointToVector(collision[0]) }
-}
-
 function calculatePushDistance(power: number): number {
     let gridSize = game.canvas.scene.grid.size;
     let maxDistance = MAX_PUSH_DISTANCE * gridSize;
     return maxDistance * (power / 100);
 }
 
+function checkFoundryCollision(start: Vector, end: Vector): Collision | null {
+    let ray = new Ray(vectorToPoint(start), vectorToPoint(end));
+    let collisions: any[] = game.canvas.walls.checkCollision(ray, { "type": "move" });
+
+    if (collisions.length === 0) {
+        return null;
+    }
+
+    let collision = collisions[0];
+    let normal = getNormal(collision, end.substract(start));
+
+    return { "normal": normal, "pos": pointToVector(collision) }
+}
+
+function getNormal(collision: any, direction: Vector): Vector {
+    var surface = getSurfaceVector(collision);
+
+    return new Vector([-surface.values[1], surface.values[0]]).normalize();
+}
+
+function getSurfaceVector(collision: any): Vector {
+    let edge = collision.edges.first();
+
+    let a = pointToVector(edge.A);
+    let b = pointToVector(edge.B);
+
+    return b.substract(a);
+}
