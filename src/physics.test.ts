@@ -2,19 +2,21 @@ import { Vector } from "ts-matrix";
 import { BallMovement, Collision } from "./physics";
 
 
-describe('sum module', () => {
-    test('test', () => {
-        function* collisionGenerator(): Generator<Collision> {
+function createChecker(generator: () => Generator<Collision>) {
+    let i = generator();
+
+    return function (): Collision {
+        return i.next().value;
+    }
+}
+
+describe('BallMovement', () => {
+    test('check basic collision', () => {
+        let checker = createChecker(function* (): Generator<Collision> {
             yield { "normal": new Vector([-1, 0]), "pos": new Vector([1, 1]) }
 
             return null;
-        }
-
-        let generator = collisionGenerator();
-
-        function checker(): Collision {
-            return generator.next().value;
-        }
+        })
 
         let result = BallMovement.initiate(
             new Vector([0, 0]),
