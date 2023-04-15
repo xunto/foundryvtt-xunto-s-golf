@@ -2,13 +2,15 @@
 
 import { createKickDialog } from "./dialog";
 
+const GAME_ACTION_TYPE = "golf";
 
 Hooks.on("ready", function() {
-    dnd5e.config.weaponProperties["golf"] = "xunto-s-golf.golf-club";
+    dnd5e.config.itemActionTypes[GAME_ACTION_TYPE] = "xunto-s-golf.golf";
 })
 
 Hooks.on("dnd5e.useItem", function(item: any) {
-    if (!item.system.properties.golf) return;
+    console.log(item);
+    if (item.system.actionType !== GAME_ACTION_TYPE) return;
 
     let actor = getActorToken(item.parent);
     let target = getTargetToken();
