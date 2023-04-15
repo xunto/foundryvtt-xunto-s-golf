@@ -26,7 +26,7 @@ export function push(actor: any, target: any, power: number) {
     for (let point of points) {
         promise = promise.then(() => {
             target.document.update(point);
-            return sleep(500);
+            return sleep(1000);
         });
     }
 }
