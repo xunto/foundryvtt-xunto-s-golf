@@ -6,8 +6,8 @@ import { Collision, Movement } from "./physics";
 const MAX_PUSH_DISTANCE = 10;
 
 export function push(actor: any, target: any, power: number) {
-    let actorPos = pointToVector(actor.position);
-    let targetPos = pointToVector(target.position);
+    let actorPos = getTokenCenterPos(actor);
+    let targetPos = getTokenCenterPos(target);
 
     let distance = getPushDistance(power);
     let direction = getPushDirection(actorPos, targetPos);
@@ -17,7 +17,9 @@ export function push(actor: any, target: any, power: number) {
         direction,
         distance,
         checkFoundryCollision
-    ).map(vectorToPoint);
+    )
+        .map((pos) => getTokenPosFromCenteral(target, pos))
+        .map(vectorToPoint);
 
     // Render ball movement.
     let promise = Promise.resolve();
@@ -48,7 +50,7 @@ function getPushDirection(actorPos: Vector, targetPos: Vector): Vector {
 }
 
 function getPushDistance(power: number): number {
-    let gridSize = game.canvas.scene.grid.size;
+    let gridSize = getGridSize();
     let maxDistance = MAX_PUSH_DISTANCE * gridSize;
     return maxDistance * (power / 100);
 }
@@ -57,6 +59,18 @@ function getNormal(collision: any, direction: Vector): Vector {
     var surface = getSurfaceVector(collision);
 
     return new Vector([-surface.values[1], surface.values[0]]).normalize();
+}
+
+function getGridSize(): number {
+    return game.canvas.scene.grid.size;
+}
+
+function getTokenCenterPos(token: any): Vector {
+    return pointToVector(token.position);
+}
+
+function getTokenPosFromCenteral(token: any, pos: Vector): Vector {
+    return pos;
 }
 
 function getSurfaceVector(collision: any): Vector {
