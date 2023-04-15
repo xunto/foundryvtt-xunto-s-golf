@@ -4,6 +4,7 @@ declare global {
     var game: any;
     var ui: any;
     var Dialog: any;
+    var Ray: any;
 }
 
 export {};
