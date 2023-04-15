@@ -1,4 +1,4 @@
-import { push } from "./interaction";
+import { push } from "./vtt_physics";
 import { DEFAULT, MAX, MIN, MiniGame as GolfMiniGame } from "./minigame";
 
 const GOLF_ID = "golf_minigame_input";
