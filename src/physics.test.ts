@@ -12,6 +12,7 @@ function createChecker(generator: () => Generator<Collision>) {
 
 describe('BallMovement', () => {
     test('check basic collision', () => {
+        // Return 1 collision, then null.
         let checker = createChecker(function* () {
             yield { "normal": new Vector([-1, 0]), "pos": new Vector([1, 1]) }
 
@@ -33,4 +34,20 @@ describe('BallMovement', () => {
             ]),
         ]);
     });
+
+    test('check depth limit', () => {
+        // Alway return collision to make sure limit is reached.
+        let checker = () => {
+            return { "normal": new Vector([-1, 0]), "pos": new Vector([1, 1]) };
+        }
+
+        let result = BallMovement.initiate(
+            new Vector([0, 0]),
+            new Vector([1, 1]),
+            1000,
+            checker,
+        );
+        
+        expect(result.length).toBe(50);
+    })
 });
