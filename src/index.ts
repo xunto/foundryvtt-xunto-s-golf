@@ -10,9 +10,9 @@ Hooks.on("ready", function() {
 Hooks.on("dnd5e.useItem", function(item: any) {
     if (!item.system.properties.golf) return;
 
-    let actor = getActorDocument(item.parent);
-    let target = getTargetDocument();
-    
+    let actor = getActorToken(item.parent);
+    let target = getTargetToken();
+
     if (target === null) {
         ui.notifications.error("No ball targeted!")
         return;
@@ -21,16 +21,11 @@ Hooks.on("dnd5e.useItem", function(item: any) {
     createKickDialog(actor, target);
 })
 
-function getActorDocument(actor: any) {
-    return actor.getActiveTokens()[0].document;
+function getActorToken(actor: any) {
+    return actor.getActiveTokens()[0];
 }
 
-function getTargetDocument() {
-    let token = game.user.targets.first() || null;
+function getTargetToken() {
+    return game.user.targets.first() || null;
 
-    if (token === null) {
-        return null;
-    }
-
-    return token.document;
 }
