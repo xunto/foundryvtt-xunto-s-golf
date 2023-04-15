@@ -15,7 +15,7 @@ export function pushTarget(actor: any, target: any, power: number) {
 
     console.log(target.checkCollision(vectorToPoint(newPos)));
 
-    target.document.update({"x": newPos.values[0], "y": newPos.values[1]});
+    target.document.update(vectorToPoint(newPos));
 }
 
 function calculatePushDistance(power: number): number {
