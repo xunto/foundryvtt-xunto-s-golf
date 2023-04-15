@@ -31,11 +31,15 @@ export class Movement {
 
         if (collision !== null) {
             newPos = collision.pos;
-            distance = distance - (targetPos.substract(newPos)).length();
             positions.push(newPos);
-            positions = positions.concat(this._process(newPos, collision.normal, distance));
+            
+            // Process reflection.
+            distance = distance - (targetPos.substract(newPos)).length();
+            let normal = collision.normal;
+            let newDirection = direction.substract(normal.scale(2* direction.dot(normal)));
+            positions = positions.concat(this._process(newPos, newDirection, distance));
         } else {
-            positions = [newPos];
+            positions.push(newPos);
         }
 
         return positions;
