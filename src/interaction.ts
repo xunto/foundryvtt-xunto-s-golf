@@ -1,7 +1,7 @@
 import { Vector } from "ts-matrix";
 import { pointToVector, vectorToPoint } from "./vectors";
 import { sleep } from "./utils";
-import { Collision, processMovement } from "./physics";
+import { Collision, Movement, processMovement } from "./physics";
 
 const MAX_PUSH_DISTANCE = 10;
 
@@ -12,7 +12,8 @@ export function push(actor: any, target: any, power: number) {
     let distance = calculatePushDistance(power);
     let direction = targetPos.substract(actorPos).normalize();
 
-    let points = processMovement(targetPos, direction, distance, checkFoundryCollision).map(vectorToPoint);
+    let vectors = Movement.process(targetPos, direction, distance, checkFoundryCollision);
+    let points = vectors.map(vectorToPoint);
 
     // Render ball movement.
     let promise = Promise.resolve();
@@ -24,10 +25,17 @@ export function push(actor: any, target: any, power: number) {
     }
 }
 
-function checkFoundryCollision(start: Vector, end: Vector): Collision {
+function checkFoundryCollision(start: Vector, end: Vector): Collision | null {
     let ray = new Ray(vectorToPoint(start), vectorToPoint(end));
-    let collision = game.canvas.walls.checkCollision(ray, { "type": "move" });
-    return { "normal": new Vector([1, 1]), "pos": pointToVector(collision[0]) }
+    let collision: any[] = game.canvas.walls.checkCollision(ray, { "type": "move" });
+
+    if (collision.length === 0) {
+        return null;
+    }
+
+    let normal = new Vector([1,1]).normalize();
+
+    return { "normal": normal, "pos": pointToVector(collision[0]) }
 }
 
 function calculatePushDistance(power: number): number {
