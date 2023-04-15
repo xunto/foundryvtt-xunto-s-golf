@@ -66,11 +66,23 @@ function getGridSize(): number {
 }
 
 function getTokenCenterPos(token: any): Vector {
-    return pointToVector(token.position);
+    let shift = getTokenShift(token);
+    return pointToVector(token.position).add(shift);
+}
+
+function getTokenShift(token: any): Vector {
+    let gridSize = getGridSize();
+    let document = token.document;
+
+    let shiftY = (document.height * gridSize) * 0.5; 
+    let shiftX = (document.width * gridSize) * 0.5;
+    
+    return new Vector([shiftX, shiftY]);
 }
 
 function getTokenPosFromCenteral(token: any, pos: Vector): Vector {
-    return pos;
+    let shift = getTokenShift(token);
+    return pos.substract(shift);
 }
 
 function getSurfaceVector(collision: any): Vector {
