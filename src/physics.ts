@@ -15,7 +15,7 @@ export class BallMovement {
         this.checkCollision = checkCollision;
     }
 
-    private processMovement(targetPos: Vector, direction: Vector, distance: number): Vector[] {
+    private processMovement(pos: Vector, direction: Vector, distance: number): Vector[] {
         this.depth++;
 
         if (this.depth > MAX_DEPTH) {
@@ -26,15 +26,15 @@ export class BallMovement {
         let positions: Vector[] = [];
 
         let movement = direction.scale(distance);
-        let newPos = targetPos.add(movement);
-        let collision = this.checkCollision(targetPos, newPos);
+        let newPos = pos.add(movement);
+        let collision = this.checkCollision(pos, newPos);
 
         if (collision !== null) {
             newPos = collision.pos;
             positions.push(newPos);
 
             // Process reflection.
-            let distanceLeft = distance - (targetPos.substract(newPos)).length();
+            let distanceLeft = distance - (pos.substract(newPos)).length();
             let newDirection = this.reflect(direction, collision.normal);
             positions = positions.concat(this.processMovement(
                 newPos.add(newDirection),
