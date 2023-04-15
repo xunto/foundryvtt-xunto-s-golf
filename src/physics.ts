@@ -7,7 +7,7 @@ export type CollisionChecker = (start: Vector, end: Vector) => Collision;
 
 const MAX_DEPTH = 50;
 
-export class Movement {
+export class BallMovement {
     private depth: number = 0;
     private checkCollision: CollisionChecker;
 
@@ -58,6 +58,6 @@ export class Movement {
         distance: number,
         checkCollision: CollisionChecker,
     ): Vector[] {
-        return new Movement(checkCollision).processMovement(targetPos, direction, distance);
+        return new BallMovement(checkCollision).processMovement(targetPos, direction, distance);
     }
 }

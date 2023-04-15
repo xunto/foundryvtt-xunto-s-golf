@@ -1,7 +1,7 @@
 import { Vector } from "ts-matrix";
 import { pointToVector, vectorToPoint } from "./vectors";
 import { sleep } from "./utils";
-import { Movement } from "./physics";
+import { BallMovement } from "./physics";
 import { transformToTokenCenter, transformToTokenPos } from "./transform";
 import { getGridSize } from "./vtt_scene";
 import { checkFoundryCollision } from "./vtt_collision";
@@ -21,7 +21,7 @@ export function push(actor: any, target: any, power: number) {
     let distance = getPushDistance(power);
     let direction = getPushDirection(actorPos, targetPos);
 
-    let points = Movement.initiate(
+    let points = BallMovement.initiate(
         targetPos,
         direction,
         distance,
