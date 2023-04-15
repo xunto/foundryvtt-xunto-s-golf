@@ -37,7 +37,7 @@ export class Movement {
             distance = distance - (targetPos.substract(newPos)).length();
             let normal = collision.normal;
             let newDirection = direction.substract(normal.scale(2* direction.dot(normal)));
-            positions = positions.concat(this._process(newPos, newDirection, distance));
+            positions = positions.concat(this._process(newPos.add(newDirection), newDirection, distance));
         } else {
             positions.push(newPos);
         }
