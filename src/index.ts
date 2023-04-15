@@ -27,5 +27,4 @@ function getActorToken(actor: any) {
 
 function getTargetToken() {
     return game.user.targets.first() || null;
-
 }

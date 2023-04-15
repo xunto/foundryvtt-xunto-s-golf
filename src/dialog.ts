@@ -1,5 +1,5 @@
+import { push } from "./interaction";
 import { DEFAULT, MAX, MIN, MiniGame as GolfMiniGame } from "./minigame";
-import { pushTarget } from "./physics";
 
 const GOLF_ID = "golf_minigame_input";
 
@@ -18,7 +18,7 @@ export function createKickDialog(actor: any, target: any) {
             label: "KICK!",
             callback: (html: any) => {
                 let power = minigame.getResult(); 
-                pushTarget(actor, target, power);
+                push(actor, target, power);
             },
             icon: `<i class="fas fa-check"></i>`
           }
