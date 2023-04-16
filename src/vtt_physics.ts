@@ -47,5 +47,5 @@ function getPushDirection(actorPos: Vector, targetPos: Vector): Vector {
 function getPushDistance(power: number): number {
     let gridSize = getGridSize();
     let maxDistance = MAX_PUSH_DISTANCE * gridSize;
-    return maxDistance * (power / 100);
+    return maxDistance * power;
 }

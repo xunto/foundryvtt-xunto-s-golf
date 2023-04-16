@@ -7,7 +7,7 @@ const TICK_SPEED = 10;
 export class MiniGame {
     private rangeId: string;
     private raising: boolean = true;
-    private current: number = DEFAULT;
+    private power: number = DEFAULT;
     private input: HTMLInputElement;
     private intervalId: NodeJS.Timer;
 
@@ -17,8 +17,8 @@ export class MiniGame {
 
     start() {
         this.input = this.getInput();
-        this.current = this.getRandomCurrent()
-        this.input.value = this.current.toString();
+        this.power = this.getRandomCurrent()
+        this.input.value = this.power.toString();
         this.raising = this.getRandomRaising();
         this.intervalId = setInterval(this.tick.bind(this), TICK_SPEED);
     }
@@ -27,8 +27,8 @@ export class MiniGame {
         clearInterval(this.intervalId);
     }
 
-    getResult(): number {
-        return this.current;
+    getPower(): number {
+        return this.power / MAX;
     }
 
     getMinigameHtml(): string {
@@ -46,20 +46,20 @@ export class MiniGame {
 
     private tick(): void {
         if (this.raising) {
-            this.current++;
+            this.power++;
         } else {
-            this.current--;
+            this.power--;
         }
 
-        if (this.current >= MAX) {
+        if (this.power >= MAX) {
             this.raising = false;
         }
 
-        if (this.current <= MIN) {
+        if (this.power <= MIN) {
             this.raising = true;
         }
 
-        this.input.value = this.current.toString();
+        this.input.value = this.power.toString();
     }
 
     private getInput(): HTMLInputElement {

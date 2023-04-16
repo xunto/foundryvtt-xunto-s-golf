@@ -20,7 +20,7 @@ export function createKickDialog(actor: any, target: any) {
       button1: {
         label: "KICK!",
         callback: (html: any) => {
-          let power = minigame.getResult();
+          let power = minigame.getPower();
           push(actor, target, power);
         },
         icon: `<i class="fas fa-check"></i>`
