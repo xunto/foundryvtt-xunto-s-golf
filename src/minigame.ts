@@ -2,7 +2,7 @@ export const MIN = 0;
 export const MAX = 100;
 export const DEFAULT = 50;
 
-const TICK_SPEED = 1;
+const TICK_SPEED = 10;
 
 export class MiniGame {
     private rangeId: string;
