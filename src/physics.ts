@@ -36,7 +36,7 @@ export class BallMovement {
             // Process reflection.
             let distanceLeft = distance - (pos.substract(newPos)).length();
             let newDirection = this.reflect(direction, collision.normal);
-            positions = positions.concat(this.processMovement(
+            positions = positions.concat(this.process(
                 newPos,
                 newDirection,
                 distanceLeft

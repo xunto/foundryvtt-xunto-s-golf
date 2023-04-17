@@ -19,11 +19,10 @@ describe('BallMovement', () => {
             return null;
         })
 
-        let result = BallMovement.initiate(
+        let result = new BallMovement(checker).process(
             new Vector([0, 0]),
             new Vector([1, 1]),
             5,
-            checker,
         );
 
         expect(result).toEqual([
@@ -41,11 +40,10 @@ describe('BallMovement', () => {
             return { "normal": new Vector([-1, 0]), "pos": new Vector([1, 1]) };
         }
 
-        let result = BallMovement.initiate(
+        let result = new BallMovement(checker).process(
             new Vector([0, 0]),
             new Vector([1, 1]),
             1000,
-            checker,
         );
         
         expect(result.length).toBe(50);

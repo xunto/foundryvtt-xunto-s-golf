@@ -20,16 +20,19 @@ export class Animator {
             sequence = this.buildPart(sequence, point);
         }
 
-        sequence = this.buildPart(sequence, end, { ease: "easeOutSine" });
+        sequence = this.buildPart(sequence, end, "easeOutSine");
 
         return sequence;
     }
 
-    private buildPart(sequence: any, point: PIXI.Point, options = {}) {
+    private buildPart(sequence: any, point: PIXI.Point, ease:string="linear") {
         return sequence
             .animation()
             .on(this.token)
-            .moveTowards(point, options)
+            .moveTowards(point, {
+                "ease": ease,
+                "relativeToCenter": true,
+            })
             .moveSpeed(BALL_MOVE_SPEED)
             .waitUntilFinished();
     }

@@ -26,9 +26,7 @@ export function push(actor: any, target: any, power: number) {
         targetPos,
         direction,
         distance
-    )
-        .map((pos) => transformToTokenPos(target, pos))
-        .map(vectorToPoint);
+    ).map(vectorToPoint);
 
     new Animator(target, points).animate();
 }
