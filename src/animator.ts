@@ -1,5 +1,6 @@
-const BALL_MOVE_SPEED = 7;
 import * as PIXI from 'pixi.js';
+
+const BALL_MOVE_SPEED = 7;
 
 export class Animator {
 
@@ -25,7 +26,7 @@ export class Animator {
         return sequence;
     }
 
-    private buildPart(sequence: any, point: PIXI.Point, ease:string="linear") {
+    private buildPart(sequence: any, point: PIXI.Point, ease: string = "linear") {
         return sequence
             .animation()
             .on(this.token)
