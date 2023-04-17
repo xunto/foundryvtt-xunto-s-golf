@@ -11,11 +11,11 @@ export class BallMovement {
     private depth: number = 0;
     private checkCollision: CollisionChecker;
 
-    private constructor(checkCollision: CollisionChecker) {
+    constructor(checkCollision: CollisionChecker) {
         this.checkCollision = checkCollision;
     }
 
-    private processMovement(pos: Vector, direction: Vector, distance: number): Vector[] {
+    public process(pos: Vector, direction: Vector, distance: number): Vector[] {
         this.depth++;
 
         if (this.depth > MAX_DEPTH) {
@@ -50,14 +50,5 @@ export class BallMovement {
 
     private reflect(direction: Vector, surfaceNormal: Vector): Vector {
         return direction.substract(surfaceNormal.scale(2 * direction.dot(surfaceNormal)));
-    }
-
-    static initiate(
-        targetPos: Vector,
-        direction: Vector,
-        distance: number,
-        checkCollision: CollisionChecker,
-    ): Vector[] {
-        return new BallMovement(checkCollision).processMovement(targetPos, direction, distance);
     }
 }

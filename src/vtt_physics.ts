@@ -22,11 +22,10 @@ export function push(actor: any, target: any, power: number) {
     let distance = getPushDistance(power);
     let direction = getPushDirection(actorPos, targetPos);
 
-    let points = BallMovement.initiate(
+    let points = new BallMovement(checkFoundryCollision).process(
         targetPos,
         direction,
-        distance,
-        checkFoundryCollision
+        distance
     )
         .map((pos) => transformToTokenPos(target, pos))
         .map(vectorToPoint);
