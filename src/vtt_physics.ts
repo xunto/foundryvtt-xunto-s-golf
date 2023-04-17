@@ -5,6 +5,7 @@ import { BallMovement } from "./physics";
 import { transformToTokenCenter, transformToTokenPos } from "./transform";
 import { getGridSize } from "./vtt_scene";
 import { checkFoundryCollision } from "./vtt_collision";
+import { Animator } from "./animator";
 
 const MAX_PUSH_DISTANCE = 10;
 
@@ -30,14 +31,7 @@ export function push(actor: any, target: any, power: number) {
         .map((pos) => transformToTokenPos(target, pos))
         .map(vectorToPoint);
 
-    // Render ball movement.
-    let promise = Promise.resolve();
-    for (let point of points) {
-        promise = promise.then(() => {
-            target.document.update(point);
-            return sleep(1000);
-        });
-    }
+    new Animator(target, points).animate();
 }
 
 function getPushDirection(actorPos: Vector, targetPos: Vector): Vector {

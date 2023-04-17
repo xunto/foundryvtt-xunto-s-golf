@@ -5,6 +5,7 @@ declare global {
     var ui: any;
     var Dialog: any;
     var Ray: any;
+    var Sequence: any;
 }
 
 export {};

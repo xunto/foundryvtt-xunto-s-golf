@@ -14,13 +14,35 @@
     "scripts": [
         "dist/main.js"
     ],
+    "relationships": {
+        "systems": [
+            {
+                "id": "dnd5e",
+                "type": "system",
+                "manifest": "https://raw.githubusercontent.com/foundryvtt/dnd5e/master/system.json",
+                "compatibility": {
+                    "verified": "2.1.5"
+                }
+            }
+        ],
+        "requires": [
+            {
+                "id": "sequencer",
+                "type": "module",
+                "manifest": "https://github.com/FantasyCalendar/FoundryVTT-Sequencer/releases/latest/download/module.json",
+                "compatibility": {
+                    "verified": "10.0.0"
+                }
+            }
+        ]
+    },
     "packs": [
         {
-          "name": "golf-actors",
-          "label": "Golf Actors",
-          "system": "dnd5e",
-          "path": "./packs/golf-actors.db",
-          "type": "Actor"
+            "name": "golf-actors",
+            "label": "Golf Actors",
+            "system": "dnd5e",
+            "path": "./packs/golf-actors.db",
+            "type": "Actor"
         },
         {
             "name": "golf-items",
@@ -28,6 +50,6 @@
             "system": "dnd5e",
             "path": "./packs/golf-items.db",
             "type": "Item"
-          }  
+        }
     ]
 }
