@@ -18,7 +18,8 @@ export class MiniGame {
     start() {
         this.input = this.getInput();
         this.power = this.getRandomCurrent()
-        this.input.value = this.power.toString();
+        this.updateInput();
+
         this.raising = this.getRandomRaising();
         this.intervalId = setInterval(this.tick.bind(this), TICK_SPEED);
     }
@@ -58,7 +59,11 @@ export class MiniGame {
         if (this.power <= MIN) {
             this.raising = true;
         }
+        
+        this.updateInput();
+    }
 
+    private updateInput(): void {
         this.input.value = this.power.toString();
     }
 
