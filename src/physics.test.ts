@@ -35,7 +35,7 @@ describe('BallMovement', () => {
     });
 
     test('check depth limit', () => {
-        // Alway return collision to make sure limit is reached.
+        // Always return collision to make sure limit is reached.
         let checker = () => {
             return { "normal": new Vector([-1, 0]), "pos": new Vector([1, 1]) };
         }
